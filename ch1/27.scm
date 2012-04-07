@@ -1,0 +1,17 @@
+(define (expmod base exp m)
+  (cond ((= exp 0) 1)
+        ((even? exp)
+         (remainder (square (expmod base (/ exp 2) m))
+                    m))
+        (else
+         (remainder (* base (expmod base (- exp 1) m))
+                    m))))
+(define (square n)
+  (* n n))
+
+(define (fermat? n)
+  (define (iter a)
+    (cond ((>= a n) #t)
+          ((not (= a (expmod a n n))) #f)
+          (else (iter (+ a 1)))))
+  (iter 2))
