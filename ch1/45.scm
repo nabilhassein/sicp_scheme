@@ -27,4 +27,5 @@
   (define (log2 x) (/ (log x) (log 2)))
   (define (damping-number n) (floor (log2 n))) ;; 2 for 4-7, 3 for 8-15, etc.
   (fixed-point ((repeated average-damp (damping-number n))
-                (lambda (y) (/ x (expt y (- n 1))))) 1.0))
+                (lambda (y) (/ x (expt y (- n 1)))))
+               1.0))
