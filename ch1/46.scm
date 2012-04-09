@@ -1,0 +1,17 @@
+(define (iterative-improve good-enough? improve)
+  (lambda (guess)
+    (define (iter guess)
+      (if (good-enough? guess)
+          guess
+          (iter (improve guess))))
+  (iter guess)))
+
+(define (sqrt x)
+  (define (average x y)
+    (/ (+ x y) 2))
+  (define (improve guess)
+    (average guess (/ x guess)))
+  (define (square x) (* x x))
+  (define (close? guess)
+    (< (abs (- (square guess) x)) 0.001))
+  ((iterative-improve close? improve) 1.0))
