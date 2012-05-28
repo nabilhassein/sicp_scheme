@@ -19,3 +19,13 @@
   (car s))
 (define (end-segment s)
   (cdr s))
+
+(define (midpoint-segment s)
+  (define (average x y)
+    (/ (+ x y) 2))
+  (let ((start (start-segment s))
+        (end (end-segment s)))
+    (make-point (average (x-point start)
+                         (x-point end))
+                (average (y-point start)
+                         (y-point end)))))
