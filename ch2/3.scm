@@ -1,3 +1,4 @@
+;; reproduced from 2.2 for convenience in REPL testing
 (define make-point cons)
 (define x-point car)
 (define y-point cdr)
