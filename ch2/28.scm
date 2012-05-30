@@ -1,0 +1,11 @@
+(define (fringe xs)
+  (define (iter xs acc)
+    (cond ((null? xs)
+           acc)
+          ((not (pair? (car xs)))
+           (iter (cdr xs)
+                 (append acc (list (car xs)))))
+          (else
+           (iter (cdr xs)
+                 (append acc (fringe (car xs)))))))
+  (iter xs '()))
