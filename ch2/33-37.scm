@@ -6,7 +6,8 @@
           (accumulate op initial (cdr sequence)))))
 
 ;; exercise 33
-(define (map p sequence)
+;; different name to not clobber default map, which can take 3 arguments, used in exercise 37
+(define (my-map p sequence)
   (accumulate (lambda (x xs) (cons (p x) xs))
               '()
               sequence))
@@ -35,14 +36,26 @@
 (define (count-leaves t)
   (accumulate +
               0
-              (map (lambda (x) 1)
+              (my-map (lambda (x) 1)
                    (enumerate-tree t))))
 
 ;; exercise 36
 (define (accumulate-n op init seqs)
   (if (null? (car seqs))
       ()
-      (cons (accumulate op init (map car seqs))
-            (accumulate-n op init (map cdr seqs)))))
+      (cons (accumulate op init (my-map car seqs))
+            (accumulate-n op init (my-map cdr seqs)))))
 
 ;; exercise 37
+(define (dot-product v w)
+  (accumulate + 0 (map * v w)))
+
+(define (matrix-*-vector m v)
+  (map (lambda (x) (dot-product x v))
+       m))
+(define (transpose mat)
+  (accumulate-n cons '() mat))
+(define (matrix-*-matrix m n)
+  (let ((cols (transpose n)))
+    (map (lambda (x) (matrix-*-vector cols x))
+         m)))
